@@ -1,0 +1,47 @@
+1) Flask abre main.py
+2) En la funcion index se saca la variable response
+	- A esta se le asigna la ruta /hello
+	- Se le setea la cookie de la IP mediante "response.set_cookie('user_ip', user_ip)"
+	- Desde esta funcion creo que se llama a hello
+	- Esta funcion Index retorna response
+3) Se ejecuta la funcion hello
+	- A la variable user_ip se le asigna la IP adquirida como cookie en Index por medio de request.cookies.get('user_ip')
+	-Se crea el diccionario que va a tener el contexto "context" en este va user_ip y los To do
+	- La funcion hello retorna el render de hello.html asi: return render_template('hello.html', **context)
+	- con el **context lo que se esta haciendo es "abrir" el diccionario, para que no pase en formato (llave: valor), esto se hace para que las variables sean mas faciles de usar.
+4) En hello.html se "extiende" base.html, esto quiere decir que se trae base para poder usarlo
+	- Se extiende tambien macros.html
+	- Lo primero que se usa es el "block title" de base.html, esto sirve para poder armar el titulo de la pagina 
+	- Con el "Super()" lo que se hace es "importar" de base.html como si fuera una clase padre el titulo y se le agrega el "Bienvenido"
+	- Luego se crea el "block content" ahi va a ir el contenido de la pagina
+		* En este se crea primero una condicional, para validar si viene la IP del usuario como cookie.
+		* Si viene la IP: 
+			{se crea un h1 con el titulo inicial}
+			{se crea un h2 con un subtitulo}
+			{se crea una lista sin orden con un for loop dentro}
+			{dentro del for se llama el "metodo" render_todo de macros.html
+				[En macros.html lo que hace el metodo render_todo es por cada todo "imprime?" "Descripcion: + (to do"]}
+		* Si no viene la IP: 
+			{Llama la funcion hello, para poder iniciar todo de nuevo}
+5)Base.html:
+	- Esta la estructura basica de html
+	- En el title se crea el "block title" mencionado anteriormente con la frase "Flsk Platzi |", esta se va a usar como el inicio de los titulos y sirve como padre para las demas rutas
+	- se hace referencia al stylesheet de css asi: <link rel="stylesheet" type="text/css" 				href="{{url_for('static', filename='css/main.css') }}">
+	- En el Body:
+		* Se crea un Header, el cual invoca a navbar.html, en este se trae una imagen, se da la 	  posibilidad de ir al inicio y de ir a la pagina de platzi asi : {% include 'navbar.html' %}
+		* Se invoca el "block content" que se creo en hello.html asi: {% block content %}{% endblock %}
+6) navbar.html:
+	- en una ul se cargan los siguientes items:
+		* una imagen que se controla asi: <img src="{{ url_for('static', filename='images/    		  mtg1.jpeg') }}" alt="Logo MTG">
+			# url_for una funcion de flask: https://kite.com/python/docs/flask.url_for
+			# en el rpimer argumento 'static' se pone la carpeta en la que se encuentra la imagen, 	en el sefundo argumento el nombre del archivo, como en este caso hay una carpeta mas se pone el resto de la ruta en el filename, como ultimo argumento de img de html se pone el alt, que es el nombre que debe aparecer si la imagen no se puede cargar
+		* Las siguientes son los items de la lista "li" en el primero tambien con un url_for se llama la funcion 'Index' esta se encuentra en main.py, el segundo es la direccion a Platzi
+7)macros.html:
+	-Se crea la macro que va a "imprimir" las listas de los To Do asi:
+	{% macro render_todo(todo) %}
+	<li>Descripción: {{ todo }}</li>
+	{% endmacro %}
+
+
+		
+

@@ -1,0 +1,49 @@
+ <!-- con este traigo el cuerpo base de base.html -->
+{% extends 'base.html' %}
+<!-- las siguientes lineas de codigo complementan el titulo de base.html -->
+{% import 'macros.html' as macros %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %} 
+	{{ super() }}
+	Bienvenido
+{% endblock %}
+
+{% block content %}
+	
+	<!--{% if username %}-->
+
+	<!--{% endif %}-->
+	
+	<!--esta condicional hace que si tenemos la ip renderice el html, sino nos lleva a elink del else-->
+{% if user_ip %} 
+
+<div>
+{% if username %}
+<h2>Bienvenido, {{ username | capitalize}}</h2>
+{% endif %}
+
+</div>
+	<div>
+	<h3 class="conteiner"> Tu Ip es: {{ user_ip }}</h3>
+	</div>
+
+	<div>
+
+
+
+	<h2>Tus tareas son: </h2>
+
+	<ul>
+		{% for todo in todos %}
+			{{macros.render_todo(todo)}}
+		{% endfor %}
+	</ul>
+
+
+
+	{% else %}
+		<a href="{{ url_for('index') }}">Ir a inicio</a> <!-- Con esto se crea un link, si se pierden las cookies, lleva a la funcion inicial que las obtiene en este caso la funcion index del main.py -->
+	{% endif %}
+
+{% endblock %}

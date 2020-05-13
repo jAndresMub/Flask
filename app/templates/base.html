@@ -1,0 +1,43 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block head %}
+	{{ super() }}
+	<title> 
+		{% block title %}Flask Platzi | {% endblock %}
+	</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+
+
+<!-- Esta es la 'class' padre, de aqui se tomaran los bloques principales-->
+
+	<!-- este titulo sera el proncipal, ent todas las que lo traigan dira Flask Platzi | y aqui esta lo que se ponga en las demas paginas, por ejemplo "Flask Platzi | Bienvenido" -->
+	
+	<!-- de esta manera se carga el css -->
+	
+
+{% block body %}
+	
+	{% block navbar %}
+		{% include 'navbar.html' %}
+	{% endblock %}
+	
+	{% for message in get_flashed_messages() %}
+		<div class="alert alert-success alert-dismissible">
+			<button type="button" 
+					data-dismiss="alert"
+					class="close">&times;</button>
+			{{message}}
+		</div>
+	{% endfor %}
+
+	{% block content %}{% endblock %}
+
+	{% block scripts %}
+		{{ super() }}
+	{% endblock %}
+
+	
+
+{% endblock %}
+

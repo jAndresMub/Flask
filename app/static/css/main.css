@@ -1,0 +1,37 @@
+
+html * {
+	font-family: sans-serif;
+}
+
+img {
+
+	max-width: 70px;
+}
+
+body {
+	margin: 40px;
+	
+}
+
+div {
+
+	align-content: center;
+	text-align: center;
+}
+
+.login {
+
+	
+	justify-content: center;
+	display: grid;
+	grid-template-columns: 300px; 
+	grid-template-rows: 50px 50px;
+	
+	
+}
+
+
+.contenido {
+	justify-content: left;
+
+}
