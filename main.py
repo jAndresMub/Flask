@@ -9,7 +9,7 @@ from app import create_app
 app = create_app()
 
 
-todos = ['Comprar Cafe', 'Enviar Solicitud', 'Enviar video']
+todos = ['Comprar Computador', 'Enviar Solicitud', 'Enviar post']
 
 
 @app.cli.command()
